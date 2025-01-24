@@ -13,7 +13,7 @@ import {
   Progress,
   Snippet,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import {
   BsGithub,
   BsFiletypePdf,
