@@ -3,6 +3,8 @@
 - Extract text from PDF files using Javascript and HTML
 - Store the result in plain text format
 
+## :link: <a href="https://ancreat.github.io/pdf-to-txt/" rel="noopener noreferrer" target="_blank">Demo link</a>
+
 ## About this project
 
 - Quickly extract the text from PDF without preserving its format
