@@ -20,6 +20,7 @@ import {
   BsFiletypeTxt,
   BsArrowRight,
 } from "react-icons/bs";
+import ThemeButtons from "@/components/theme-buttons";
 
 export default function Home() {
   const [isTextExtracting, setIsTextExtracting] = useState(false);
@@ -77,8 +78,11 @@ export default function Home() {
             <BsArrowRight />
             <BsFiletypeTxt />
           </p>
-          <BsGithub className="text-5xl m-2" />
-          Open source project
+          <div className="flex items-center m-2 gap-1">
+            <BsGithub />
+            <p>Open source project</p>
+          </div>
+          <ThemeButtons />
         </div>
 
         <ol className="list-inside list-decimal text-lg">
@@ -91,7 +95,7 @@ export default function Home() {
           accept="application/pdf"
           onChange={extractText}
           multiple={false}
-          fullWidth={false}
+          fullWidth={true}
           key={fileInputKey}
         />
         <Alert
