@@ -1,127 +1,40 @@
 "use client";
-import { useState } from "react";
-import pdfToText from "react-pdftotext";
-import {
-  Alert,
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Progress,
-  Snippet,
-  useDisclosure,
-} from "@heroui/react";
-import {
-  BsGithub,
-  BsFiletypePdf,
-  BsFiletypeTxt,
-  BsArrowRight,
-} from "react-icons/bs";
-import ThemeButtons from "@/components/theme-buttons";
+import { Button, Snippet } from "@heroui/react";
+import FileInput from "@/components/file-input";
+import Header from "@/components/header";
+import ProgressIndicator from "@/components/progress-indicator";
+import ButtonForFullTextModal from "@/components/button-for-full-text-modal";
+import { useFileProcessing } from "@/hooks/useFileProcessing";
 
 export default function Home() {
-  const [isTextExtracting, setIsTextExtracting] = useState(false);
-  const [fileInputKey, setFileInputKey] = useState(Date.now());
+  const {
+    text,
+    textFileName,
+    isTextExtracting,
+    isAlertVisible,
+    fileInputRef,
+    extractText,
+    downloadText,
+    reset,
+  } = useFileProcessing();
 
-  const [text, setText] = useState("");
-  const [textFileName, setTextFileName] = useState("");
-  const [isAlertVisible, setIsAlertVisible] = useState(false);
-
-  const isTextAvailable = text != "";
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const extractText = (event: React.FormEvent<HTMLInputElement>) => {
-    const files = event.currentTarget.files ?? [];
-
-    if (files.length == 0) {
-      setTextFileName("");
-      setText("");
-    } else if (files.length == 1) {
-      const file = files[0];
-      setIsTextExtracting(true);
-      setTextFileName(file.name);
-
-      pdfToText(file)
-        .then((text) => {
-          setText(text);
-          setIsTextExtracting(false);
-        })
-        .catch((error) => {
-          setIsTextExtracting(false);
-          setText("");
-          setIsAlertVisible(true);
-          console.log(error);
-        });
-    }
-  };
-
-  const downloadText = () => {
-    const element = document.createElement("a");
-    const file = new Blob([text], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = textFileName + ".txt";
-    document.body.appendChild(element);
-    element.click();
-  };
+  const isTextAvailable = text !== "";
 
   return (
     <div className="grid items-center justify-items-center m-5">
       <main className="flex flex-col gap-5 row-start-2 items-center max-w-lg">
-        <div className="flex flex-col justify-center items-center w-full m-2 p-3 border-3 rounded-full">
-          <p className="text-3xl font-bold m-2">Pdf to text</p>
-          <p className="flex gap-2 text-5xl">
-            <BsFiletypePdf />
-            <BsArrowRight />
-            <BsFiletypeTxt />
-          </p>
-          <div className="flex items-center m-2 gap-1">
-            <BsGithub />
-            <p>Open source project</p>
-          </div>
-          <ThemeButtons />
-        </div>
+        <Header />
 
-        <ol className="list-inside list-decimal text-lg">
-          <li>Load the pdf</li>
-          <li>Copy the output to clipboard or download it</li>
-        </ol>
-
-        <Input
-          type="file"
-          accept="application/pdf"
+        <FileInput
           onChange={extractText}
-          multiple={false}
-          fullWidth={true}
-          key={fileInputKey}
-        />
-        <Alert
-          title="Failed to extract text from pdf"
-          color="danger"
-          isVisible={isAlertVisible}
-          onClose={() => setIsAlertVisible(false)}
+          inputRef={fileInputRef}
+          isAlertVisible={isAlertVisible}
         />
 
-        {isTextExtracting ? (
-          <Progress
-            isIndeterminate
-            aria-label="Loading..."
-            className="max-w-md"
-            size="md"
-            label="Loading"
-          />
-        ) : (
-          <Progress
-            aria-label="completed"
-            className="max-w-md"
-            size="md"
-            value={isTextAvailable ? 100 : 0}
-            label={isTextAvailable ? "Completed" : ""}
-          />
-        )}
+        <ProgressIndicator
+          isTextExtracting={isTextExtracting}
+          isTextAvailable={isTextAvailable}
+        />
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <Snippet
@@ -143,58 +56,18 @@ export default function Home() {
           </Button>
         </div>
 
-        <Button
-          size="lg"
-          onPress={onOpen}
-          isDisabled={!isTextAvailable}
-          variant="bordered"
-        >
-          Show the full text
-        </Button>
-
-        <Modal
-          isOpen={isOpen}
-          size="3xl"
-          scrollBehavior="inside"
-          onClose={onClose}
-        >
-          <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader>Text of {textFileName}</ModalHeader>
-                <ModalBody>
-                  <p>{text}</p>
-                </ModalBody>
-                <ModalFooter>
-                  <Snippet
-                    hideSymbol
-                    codeString={text}
-                    disableCopy={!isTextAvailable}
-                    variant="bordered"
-                    size="md"
-                  >
-                    Copy
-                  </Snippet>
-                  <Button color="primary" onPress={onClose} size="lg">
-                    Close
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
+        <ButtonForFullTextModal
+          text={text}
+          textFileName={textFileName}
+          isTextAvailable={isTextAvailable}
+        />
 
         <Button
-          onPress={() => {
-            setText("");
-            setTextFileName("");
-            setIsAlertVisible(false);
-            setFileInputKey(Date.now());
-          }}
+          onPress={reset}
           variant="bordered"
           color="danger"
           size="sm"
-          isDisabled={isTextExtracting || !isTextAvailable}
+          isDisabled={isTextExtracting || fileInputRef.current?.value === ""}
         >
           Reset for the next pdf
         </Button>
