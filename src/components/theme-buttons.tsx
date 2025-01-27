@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
-import { Button, Skeleton } from "@heroui/react";
+import { Button, Skeleton, Switch } from "@heroui/react";
 
 const ThemeButtons = () => {
   const [mounted, setMounted] = useState(false);
@@ -20,17 +20,16 @@ const ThemeButtons = () => {
   }
 
   return (
-    <>
-      {resolvedTheme == "light" ? (
-        <Button isIconOnly onPress={() => setTheme("dark")}>
-          <MdDarkMode />
-        </Button>
-      ) : (
-        <Button isIconOnly onPress={() => setTheme("light")}>
-          <MdLightMode />
-        </Button>
-      )}
-    </>
+    <Switch
+      defaultSelected={resolvedTheme == "light"}
+      endContent={<MdDarkMode />}
+      size="lg"
+      startContent={<MdLightMode />}
+      onValueChange={() =>
+        setTheme(resolvedTheme == "light" ? "dark" : "light")
+      }
+      color="default"
+    />
   );
 };
 

@@ -17,9 +17,9 @@ const FileInput = ({ onChange, inputRef, isAlertVisible }: FileInputProps) => {
         type="file"
         accept="application/pdf"
         onChange={onChange}
-        multiple={false}
+        multiple={true}
         fullWidth={true}
-        label="Choose a PDF file"
+        label={"Choose PDF files"}
         isInvalid={isAlertVisible}
         errorMessage={
           <Alert

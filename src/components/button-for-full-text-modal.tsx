@@ -31,7 +31,7 @@ export default function ButtonForFullTextModal({
         isDisabled={!isTextAvailable}
         variant="bordered"
       >
-        Show the text
+        Show
       </Button>
 
       <Modal
