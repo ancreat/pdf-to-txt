@@ -1,20 +1,19 @@
 import { useRef, useState } from "react";
 import pdfToText from "react-pdftotext";
 import { useFileHistoryStore } from "@/store/file-history-store";
-import { downloadTextAsFile } from "@/utils/file-utils";
 
 export function useFileProcessing() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isTextExtracting, setIsTextExtracting] = useState(false);
   const [text, setText] = useState<string | null>(null);
-  const [textFileName, setTextFileName] = useState("");
+  const [, setTextFileName] = useState("");
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   const appendFileHistory = useFileHistoryStore(
     (state) => state.appendFileHistory,
   );
 
-  const extractText = (event: React.FormEvent<HTMLInputElement>) => {
+  const extractText = async (event: React.FormEvent<HTMLInputElement>) => {
     const files = event.currentTarget.files ?? [];
     setIsAlertVisible(false);
 
@@ -47,14 +46,35 @@ export function useFileProcessing() {
             isSuccess: false,
           });
         });
-    }
-  };
+    } else if (files.length > 1) {
+      setIsTextExtracting(true);
 
-  const downloadText = () => {
-    if (!text || !textFileName) {
-      return;
+      try {
+        await Promise.all(
+          Array.from(files).map(async (file) => {
+            setTextFileName(file.name);
+            try {
+              const text = await pdfToText(file);
+              setText(text);
+              appendFileHistory({
+                textFileName: file.name,
+                text: text,
+                isSuccess: true,
+              });
+            } catch (error) {
+              console.log(error);
+              appendFileHistory({
+                textFileName: file.name,
+                text: null,
+                isSuccess: false,
+              });
+            }
+          }),
+        );
+      } finally {
+        setIsTextExtracting(false);
+      }
     }
-    downloadTextAsFile(text, textFileName);
   };
 
   const reset = () => {
@@ -68,12 +88,10 @@ export function useFileProcessing() {
 
   return {
     text,
-    textFileName,
     isTextExtracting,
     isAlertVisible,
     fileInputRef,
     extractText,
-    downloadText,
     reset,
   };
 }

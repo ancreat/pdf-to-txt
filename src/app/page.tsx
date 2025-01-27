@@ -1,27 +1,29 @@
 "use client";
-import { Button, Snippet } from "@heroui/react";
+
+import { Button } from "@heroui/react";
 import FileInput from "@/components/file-input";
 import ProgressIndicator from "@/components/progress-indicator";
-import ButtonForFullTextModal from "@/components/button-for-full-text-modal";
 import { useFileProcessing } from "@/hooks/useFileProcessing";
+import { useRouter } from "next/navigation";
+import { MdFileDownload } from "react-icons/md";
 
 export default function Home() {
+  const router = useRouter();
+
   const {
     text,
-    textFileName,
     isTextExtracting,
     isAlertVisible,
     fileInputRef,
     extractText,
-    downloadText,
     reset,
   } = useFileProcessing();
 
   const isTextAvailable = text != null;
 
   return (
-    <div className="grid items-center justify-items-center m-5">
-      <main className="flex flex-col gap-5 row-start-2 items-center max-w-lg">
+    <div className="flex items-center justify-center m-5">
+      <main className="flex flex-col gap-5 items-center max-w-lg">
         <FileInput
           onChange={extractText}
           inputRef={fileInputRef}
@@ -33,39 +35,29 @@ export default function Home() {
           isTextAvailable={isTextAvailable}
         />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <Snippet
-            hideSymbol
-            codeString={text ?? ""}
-            disableCopy={!isTextAvailable}
-            variant="bordered"
-            size="md"
-          >
-            Copy the text
-          </Snippet>
-          <Button
-            onPress={downloadText}
-            isDisabled={!isTextAvailable}
-            variant="bordered"
-            size="lg"
-          >
-            Download the text
-          </Button>
-        </div>
-
-        <ButtonForFullTextModal
-          text={text ?? ""}
-          textFileName={textFileName ?? ""}
-          isTextAvailable={isTextAvailable}
-        />
+        <Button
+          onPress={() => router.push("/result/")}
+          isDisabled={
+            isTextExtracting ||
+            fileInputRef.current?.value == null ||
+            fileInputRef.current?.value == ""
+          }
+          color="primary"
+        >
+          <MdFileDownload /> Result
+        </Button>
 
         <Button
           onPress={reset}
-          variant="bordered"
+          color="default"
           size="sm"
-          isDisabled={isTextExtracting || fileInputRef.current?.value === ""}
+          isDisabled={
+            isTextExtracting ||
+            fileInputRef.current?.value == null ||
+            fileInputRef.current?.value == ""
+          }
         >
-          Choose the next pdf
+          Reset the PDF files selection
         </Button>
       </main>
     </div>

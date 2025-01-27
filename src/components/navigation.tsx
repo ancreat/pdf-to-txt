@@ -20,8 +20,8 @@ export default function Navigation() {
           }
         />
         <Tab
-          key="/result"
-          href="/result"
+          key="/result/"
+          href="/result/"
           title={
             <div className="flex items-center gap-2">
               <MdFileDownload /> Result
