@@ -1,12 +1,18 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import pdfToText from "react-pdftotext";
+import { useFileHistoryStore } from "@/store/file-history-store";
+import { downloadTextAsFile } from "@/utils/file-utils";
 
 export function useFileProcessing() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isTextExtracting, setIsTextExtracting] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string | null>(null);
   const [textFileName, setTextFileName] = useState("");
   const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+  const appendFileHistory = useFileHistoryStore(
+    (state) => state.appendFileHistory,
+  );
 
   const extractText = (event: React.FormEvent<HTMLInputElement>) => {
     const files = event.currentTarget.files ?? [];
@@ -14,7 +20,7 @@ export function useFileProcessing() {
 
     if (files.length == 0) {
       setTextFileName("");
-      setText("");
+      setText(null);
     } else if (files.length == 1) {
       const file = files[0];
       setIsTextExtracting(true);
@@ -24,12 +30,22 @@ export function useFileProcessing() {
         .then((text) => {
           setIsTextExtracting(false);
           setText(text);
+          appendFileHistory({
+            textFileName: file.name,
+            text: text,
+            isSuccess: true,
+          });
         })
         .catch((error) => {
           setIsTextExtracting(false);
-          setText("");
+          setText(null);
           setIsAlertVisible(true);
           console.log(error);
+          appendFileHistory({
+            textFileName: file.name,
+            text: null,
+            isSuccess: false,
+          });
         });
     }
   };
@@ -38,17 +54,11 @@ export function useFileProcessing() {
     if (!text || !textFileName) {
       return;
     }
-
-    const element = document.createElement("a");
-    const file = new Blob([text], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = textFileName + ".txt";
-    document.body.appendChild(element);
-    element.click();
+    downloadTextAsFile(text, textFileName);
   };
 
   const reset = () => {
-    setText("");
+    setText(null);
     setTextFileName("");
     setIsAlertVisible(false);
     if (fileInputRef.current) {
