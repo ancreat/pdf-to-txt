@@ -1,3 +1,5 @@
+"use client";
+
 import {
   BsGithub,
   BsFiletypePdf,
@@ -8,18 +10,20 @@ import ThemeButtons from "@/components/theme-buttons";
 
 export default function Header() {
   return (
-    <div className="flex flex-col justify-center items-center w-full m-2 p-3 border-3 rounded-full">
-      <p className="text-3xl font-bold m-2">Pdf to text</p>
-      <p className="flex gap-2 text-5xl">
-        <BsFiletypePdf />
-        <BsArrowRight />
-        <BsFiletypeTxt />
-      </p>
-      <div className="flex items-center m-2 gap-1">
-        <BsGithub />
-        <p>Open source project</p>
+    <div className="w-full max-w-sm mx-auto m-5">
+      <div className="flex flex-col items-center p-1 border-3 rounded-full gap-1">
+        <p className="flex gap-2 text-3xl font-bold items-center">
+          Pdf to text
+          <BsFiletypePdf />
+          <BsArrowRight />
+          <BsFiletypeTxt />
+          <ThemeButtons />
+        </p>
+        <div className="flex items-center gap-1 text-md">
+          <BsGithub />
+          <p>Open source project</p>
+        </div>
       </div>
-      <ThemeButtons />
     </div>
   );
 }

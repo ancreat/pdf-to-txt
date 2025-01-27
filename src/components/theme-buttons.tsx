@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { MdLightMode, MdDarkMode, MdComputer } from "react-icons/md";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { Button, Skeleton } from "@heroui/react";
 
-const LightOrDarkModeButton = () => {
+const ThemeButtons = () => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -31,18 +31,6 @@ const LightOrDarkModeButton = () => {
         </Button>
       )}
     </>
-  );
-};
-
-const ThemeButtons = () => {
-  const { setTheme } = useTheme();
-  return (
-    <div className="flex items-center m-2 gap-5">
-      <Button isIconOnly onPress={() => setTheme("system")}>
-        <MdComputer />
-      </Button>
-      <LightOrDarkModeButton />
-    </div>
   );
 };
 

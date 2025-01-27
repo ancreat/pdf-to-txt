@@ -1,3 +1,4 @@
+import { downloadTextAsFile } from "@/utils/file-utils";
 import {
   Button,
   Modal,
@@ -30,7 +31,7 @@ export default function ButtonForFullTextModal({
         isDisabled={!isTextAvailable}
         variant="bordered"
       >
-        Show the full text
+        Show the text
       </Button>
 
       <Modal
@@ -46,7 +47,7 @@ export default function ButtonForFullTextModal({
               <ModalBody>
                 <p>{text}</p>
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className="gap-5">
                 <Snippet
                   hideSymbol
                   codeString={text}
@@ -56,6 +57,14 @@ export default function ButtonForFullTextModal({
                 >
                   Copy
                 </Snippet>
+                <Button
+                  onPress={() => downloadTextAsFile(text, textFileName)}
+                  isDisabled={text == null}
+                  variant="bordered"
+                  size="lg"
+                >
+                  Download
+                </Button>
                 <Button color="primary" onPress={onClose} size="lg">
                   Close
                 </Button>
