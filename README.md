@@ -1,15 +1,49 @@
-# PDF-To-TXT Converter
+# PDF-to-TXT Converter
 
-- Extract text from PDF files using Javascript and HTML
-- Store the result in plain text format
+A modern web application that converts PDF files to text format with batch processing capabilities.
 
-## [Demo link](https://ancreat.github.io/pdf-to-txt/) :link:
+## 🚀 Demo
 
-## About this project
+Try it out: [Live Demo](https://ancreat.github.io/pdf-to-txt/)
 
-- Quickly extract the text from PDF without preserving its format
-- Operate as a web browser tool with no installation required
-- A manual review of the extracted text is essential for accuracy
+## ✨ Key Features
+
+- 📄 Single/Batch PDF text extraction
+- 📋 Copy extracted text to clipboard
+- 💾 Download text as `.txt` files
+- 📊 Process history tracking
+- 🌓 Light/Dark theme support
+- 📱 Responsive design
+- 📈 Real-time progress tracking
+
+## 🏗️ Source Code Structure
+
+```
+src/
+├── app/                      # Next.js pages and layouts
+│   └── ...
+│
+├── components/               # Reusable UI components
+│   └── ...
+│
+├── hooks/                    # Custom React hooks
+│   └── useFileProcessing.ts  # PDF processing logic
+│
+├── store/                    # Zustand for state management
+│   └── file-history-store.ts # Manages the state of processed file history
+│
+└── utils/                    # Utility functions
+    └── file-utils.ts
+```
+
+## Tech Stack
+
+- React.js
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Zustand for state management
+- HeroUI for components
 
 ## Getting started
 
