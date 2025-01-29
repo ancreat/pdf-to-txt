@@ -47,7 +47,7 @@ export default function Header() {
           <NavbarMenuItem key={item.href}>
             <Link
               href={item.href}
-              className="flex items-center gap-2"
+              className="flex items-center gap-3 text-3xl my-3"
               onPress={() => setIsMenuOpen(false)}
             >
               {item.icon} {item.title}
