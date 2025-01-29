@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface FileHistory {
+export interface FileHistory {
   textFileName: string | null;
   text: string | null;
   isSuccess: boolean;

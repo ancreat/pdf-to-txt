@@ -6,9 +6,14 @@ import {
   fireEvent,
   cleanup,
   within,
+  renderHook,
+  act,
 } from "@testing-library/react";
 import Result from "@/app/result/page";
-import { useFileHistoryStore } from "@/store/file-history-store";
+import {
+  useFileHistoryStore,
+  type FileHistory,
+} from "@/store/file-history-store";
 
 const TEST_IDS = {
   resetButton: "reset-button",
@@ -22,9 +27,20 @@ const renderResult = () => {
   render(<Result />);
 };
 
-vi.mock("@/store/file-history-store", () => ({
-  useFileHistoryStore: vi.fn(),
-}));
+const mockFileHistory: FileHistory[] = [
+  {
+    textFileName: "test1.pdf",
+    text: "Sample text 1",
+    isSuccess: true,
+    timestamp: "2000-01-01 01:00:00",
+  },
+  {
+    textFileName: "test2.pdf",
+    text: null,
+    isSuccess: false,
+    timestamp: "2000-01-01 01:01:00",
+  },
+];
 
 vi.mock("@heroui/react", () => ({
   Button: ({
@@ -80,32 +96,18 @@ vi.mock("@/components/button-for-full-text-modal", () => ({
 }));
 
 describe("Result Page", () => {
-  const mockResetFileHistory = vi.fn();
-
-  const mockFileHistory = [
-    {
-      textFileName: "test1.pdf",
-      text: "Sample text 1",
-      isSuccess: true,
-      timestamp: "2000-01-01 01:00:00",
-    },
-    {
-      textFileName: "test2.pdf",
-      text: null,
-      isSuccess: false,
-      timestamp: "2000-01-01 01:01:00",
-    },
-  ];
-
   beforeEach(() => {
     cleanup();
     vi.clearAllMocks();
-    (useFileHistoryStore as any).mockImplementation((selector: any) =>
-      selector({
-        fileHistory: mockFileHistory,
-        resetFileHistory: mockResetFileHistory,
-      }),
+
+    const appendFileHistory = renderHook(() =>
+      useFileHistoryStore((state) => state.appendFileHistory),
     );
+
+    act(() => {
+      appendFileHistory.result.current(mockFileHistory[0]);
+      appendFileHistory.result.current(mockFileHistory[1]);
+    });
   });
 
   it("renders the table with correct headers", () => {
@@ -148,22 +150,27 @@ describe("Result Page", () => {
   });
 
   it("shows reset button and handles click when file history exists", () => {
+    const { result } = renderHook(() => useFileHistoryStore());
+    const spy = vi.spyOn(result.current, "resetFileHistory");
     renderResult();
 
     const resetButton = screen.getByTestId(TEST_IDS.resetButton);
     expect(resetButton).toBeDefined();
 
     fireEvent.click(resetButton);
-    expect(mockResetFileHistory).toHaveBeenCalledTimes(1);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(result.current.fileHistory).toEqual([]);
   });
 
   it("shows empty state message when file history is empty", () => {
-    (useFileHistoryStore as any).mockImplementation((selector: any) =>
-      selector({
-        fileHistory: [],
-        resetFileHistory: mockResetFileHistory,
-      }),
+    const resetFileHistory = renderHook(() =>
+      useFileHistoryStore((state) => state.resetFileHistory),
     );
+
+    act(() => {
+      resetFileHistory.result.current();
+    });
 
     renderResult();
 
