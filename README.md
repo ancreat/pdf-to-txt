@@ -22,6 +22,8 @@ Try it out: [Live Demo](https://ancreat.github.io/pdf-to-txt/)
 src/
 ├── app/                      # Next.js pages and layouts
 │   └── ...
+│   └── result/
+│       └── page.test.tsx     # Vitest example
 │
 ├── components/               # Reusable UI components
 │   └── ...
@@ -44,6 +46,7 @@ src/
 - Tailwind CSS
 - Zustand for state management
 - HeroUI for components
+- Vitest for testing
 
 ## Getting started
 
