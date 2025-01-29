@@ -18,7 +18,7 @@ export default function Result() {
   );
 
   return (
-    <main className="flex flex-col items-center gap-5 m-5 max-w-5xl mx-auto">
+    <main className="flex flex-col gap-5 items-center p-3">
       <Table aria-label="Result Table">
         <TableHeader>
           <TableColumn data-testid="header-filename">File Name</TableColumn>

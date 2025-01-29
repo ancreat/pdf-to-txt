@@ -22,19 +22,23 @@ export default function Home() {
   const isTextAvailable = text != null;
 
   return (
-    <div className="flex items-center justify-center m-5">
-      <main className="flex flex-col gap-5 items-center max-w-lg">
+    <main className="flex flex-col gap-5 items-center p-3">
+      <div className="flex w-full max-w-xl">
         <FileInput
           onChange={extractText}
           inputRef={fileInputRef}
           isAlertVisible={isAlertVisible}
         />
+      </div>
 
+      <div className="flex w-full max-w-xl">
         <ProgressIndicator
           isTextExtracting={isTextExtracting}
           isTextAvailable={isTextAvailable}
         />
+      </div>
 
+      <div className="flex w-full max-w-sm">
         <Button
           onPress={() => router.push("/result/")}
           isDisabled={
@@ -43,23 +47,26 @@ export default function Home() {
             fileInputRef.current?.value == ""
           }
           color="primary"
+          fullWidth
         >
           <MdFileDownload /> Result
         </Button>
+      </div>
 
+      <div className="flex w-full max-w-sm">
         <Button
           onPress={reset}
           color="default"
-          size="sm"
           isDisabled={
             isTextExtracting ||
             fileInputRef.current?.value == null ||
             fileInputRef.current?.value == ""
           }
+          fullWidth
         >
           Reset the PDF files selection
         </Button>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
