@@ -1,29 +1,60 @@
 "use client";
 
-import {
-  BsGithub,
-  BsFiletypePdf,
-  BsFiletypeTxt,
-  BsArrowRight,
-} from "react-icons/bs";
+import { BsFiletypePdf, BsFiletypeTxt, BsArrowRight } from "react-icons/bs";
 import ThemeButtons from "@/components/theme-buttons";
+import {
+  Link,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from "@heroui/react";
+import { useState } from "react";
+import Navigation from "@/components/navigation";
+import { navigationTabs } from "@/components/navigation";
 
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <div className="w-full max-w-sm mx-auto m-5">
-      <div className="flex flex-col items-center p-1 border-3 rounded-full gap-1">
-        <p className="flex gap-2 text-3xl font-bold items-center">
-          Pdf to text
-          <BsFiletypePdf />
-          <BsArrowRight />
-          <BsFiletypeTxt />
-          <ThemeButtons />
-        </p>
-        <div className="flex items-center gap-1 text-md">
-          <BsGithub />
-          <p>Open source project</p>
-        </div>
+    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+      <NavbarContent justify="start">
+        <NavbarMenuToggle
+          className="sm:hidden"
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        />
+        <NavbarBrand>
+          <div className="flex items-center gap-1">
+            <BsFiletypePdf className="h-10 w-10" />
+            <BsArrowRight className="h-10 w-10" />
+            <BsFiletypeTxt className="h-10 w-10" />
+          </div>
+        </NavbarBrand>
+      </NavbarContent>
+
+      <div className="hidden sm:block">
+        <Navigation />
       </div>
-    </div>
+
+      <NavbarContent justify="end">
+        <ThemeButtons />
+      </NavbarContent>
+
+      <NavbarMenu>
+        {navigationTabs.map((item) => (
+          <NavbarMenuItem key={item.href}>
+            <Link
+              href={item.href}
+              className="flex items-center gap-2"
+              onPress={() => setIsMenuOpen(false)}
+            >
+              {item.icon} {item.title}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+    </Navbar>
   );
 }

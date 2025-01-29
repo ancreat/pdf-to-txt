@@ -4,7 +4,6 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/header";
-import Navigation from "@/components/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +33,6 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider attribute="class">
             <Header />
-            <Navigation />
             {children}
           </ThemeProvider>
         </Providers>
