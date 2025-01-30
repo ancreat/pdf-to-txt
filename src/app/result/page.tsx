@@ -13,26 +13,35 @@ import ButtonForFullTextModal from "@/components/button-for-full-text-modal";
 
 export default function Result() {
   const fileHistory = useFileHistoryStore((state) => state.fileHistory);
+  const appendFileHistory = useFileHistoryStore(
+    (state) => state.appendFileHistory,
+  );
   const resetFileHistory = useFileHistoryStore(
     (state) => state.resetFileHistory,
   );
+
+  const addSampleFile = () => {
+    appendFileHistory({
+      textFileName: "Sample File.pdf",
+      text: "Hello, World!",
+      isSuccess: true,
+    });
+  };
 
   return (
     <main className="flex flex-col gap-5 items-center p-3">
       <Table aria-label="Result Table">
         <TableHeader>
+          <TableColumn data-testid="header-index">Item</TableColumn>
           <TableColumn data-testid="header-filename">File Name</TableColumn>
-          <TableColumn data-testid="header-timestamp">Timestamp</TableColumn>
           <TableColumn data-testid="header-status">Status</TableColumn>
           <TableColumn data-testid="header-text">Text</TableColumn>
         </TableHeader>
         <TableBody>
           {fileHistory.map((item, index) => (
             <TableRow key={index}>
+              <TableCell>{index + 1}</TableCell>
               <TableCell className="font-bold">{item.textFileName}</TableCell>
-              <TableCell className="text-sm text-gray-500">
-                {item.timestamp}
-              </TableCell>
               <TableCell>{item.isSuccess ? "Succeeded" : "Failed"}</TableCell>
               <TableCell>
                 {item.text !== null && (
@@ -51,6 +60,8 @@ export default function Result() {
       {fileHistory.length === 0 && (
         <div data-testid="no-results-message">No result is found.</div>
       )}
+
+      <Button onPress={addSampleFile}>Add a Sample File</Button>
 
       {fileHistory.length !== 0 && (
         <Button data-testid="reset-button" onPress={resetFileHistory}>
