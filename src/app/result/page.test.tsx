@@ -113,7 +113,7 @@ describe("Result Page", () => {
   it("renders the table with correct headers", () => {
     renderResult();
 
-    const expectedHeaders = ["filename", "timestamp", "status", "text"];
+    const expectedHeaders = ["index", "filename", "status", "text"];
     expectedHeaders.forEach((header) => {
       expect(screen.getByTestId(TEST_IDS.header(header))).toBeDefined();
     });
