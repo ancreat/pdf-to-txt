@@ -10,17 +10,19 @@ import {
   useDisclosure,
 } from "@heroui/react";
 
-interface ButtonForFullTextModalProps {
+interface OpenTextModalButtonProps {
   text: string;
   textFileName: string;
   isTextAvailable: boolean;
+  "data-testid"?: string;
 }
 
-export default function ButtonForFullTextModal({
+export default function OpenTextModalButton({
   text,
   textFileName,
   isTextAvailable,
-}: ButtonForFullTextModalProps) {
+  "data-testid": dataTestId,
+}: OpenTextModalButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -30,6 +32,7 @@ export default function ButtonForFullTextModal({
         onPress={onOpen}
         isDisabled={!isTextAvailable}
         variant="bordered"
+        data-testid={dataTestId}
       >
         Show
       </Button>
@@ -44,8 +47,8 @@ export default function ButtonForFullTextModal({
           {(onClose) => (
             <>
               <ModalHeader>Text of {textFileName}</ModalHeader>
-              <ModalBody>
-                <p>{text}</p>
+              <ModalBody data-testid="open-text-modal-button-modal-body">
+                {text}
               </ModalBody>
               <ModalFooter className="gap-5">
                 <Snippet

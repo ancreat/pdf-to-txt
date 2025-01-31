@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { Button, Skeleton, Switch } from "@heroui/react";
 
-const ThemeButtons = () => {
+const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -29,8 +29,9 @@ const ThemeButtons = () => {
         setTheme(resolvedTheme == "light" ? "dark" : "light")
       }
       color="default"
+      data-testid="theme-switch"
     />
   );
 };
 
-export default ThemeButtons;
+export default ThemeSwitch;

@@ -9,7 +9,7 @@ import {
   TableRow,
   TableCell,
 } from "@heroui/react";
-import ButtonForFullTextModal from "@/components/button-for-full-text-modal";
+import OpenTextModalButton from "@/components/open-text-modal-button";
 
 export default function Result() {
   const fileHistory = useFileHistoryStore((state) => state.fileHistory);
@@ -45,7 +45,8 @@ export default function Result() {
               <TableCell>{item.isSuccess ? "Succeeded" : "Failed"}</TableCell>
               <TableCell>
                 {item.text !== null && (
-                  <ButtonForFullTextModal
+                  <OpenTextModalButton
+                    data-testid={`open-text-modal-button-${index}`}
                     text={item.text ?? ""}
                     textFileName={item.textFileName ?? ""}
                     isTextAvailable={item.text !== null}
