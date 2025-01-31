@@ -1,7 +1,7 @@
 "use client";
 
 import { BsFiletypePdf, BsFiletypeTxt, BsArrowRight } from "react-icons/bs";
-import ThemeButtons from "@/components/theme-buttons";
+import ThemeSwitch from "@/components/theme-switch";
 import {
   Link,
   Navbar,
@@ -39,7 +39,7 @@ export default function Header() {
       </div>
 
       <NavbarContent justify="end">
-        <ThemeButtons />
+        <ThemeSwitch />
       </NavbarContent>
 
       <NavbarMenu>
