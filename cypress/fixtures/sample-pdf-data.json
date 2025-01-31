@@ -1,0 +1,14 @@
+[
+  {
+    "sampleText": "Hello, world!",
+    "fileName": "sample.pdf"
+  },
+  {
+    "sampleText": "Hello, world!",
+    "fileName": "sample2.pdf"
+  },
+  {
+    "sampleText": "Hello, world!",
+    "fileName": "sample3.pdf"
+  }
+]

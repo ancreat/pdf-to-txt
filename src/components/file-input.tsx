@@ -26,6 +26,7 @@ const FileInput = ({ onChange, inputRef, isAlertVisible }: FileInputProps) => {
             className="mt-1"
             title="Failed to extract text from pdf"
             color="danger"
+            data-testid="file-input-error-message"
           />
         }
         classNames={{

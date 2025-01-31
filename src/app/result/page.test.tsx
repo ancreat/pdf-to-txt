@@ -89,7 +89,7 @@ vi.mock("@heroui/react", () => ({
   ),
 }));
 
-vi.mock("@/components/button-for-full-text-modal", () => ({
+vi.mock("@/components/open-text-modal-button", () => ({
   default: ({ textFileName }: { textFileName: string }) => (
     <button data-testid={`show-button-${textFileName}`}>Show</button>
   ),
