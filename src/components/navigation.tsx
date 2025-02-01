@@ -2,11 +2,12 @@
 
 import { Tabs, Tab } from "@heroui/react";
 import { usePathname } from "next/navigation";
-import { MdFileDownload, MdHome, MdInfo } from "react-icons/md";
+import { MdHome, MdFileDownload, MdInfo, MdImage } from "react-icons/md";
 
 export const navigationTabs = [
   { href: "/", icon: <MdHome />, title: "Home" },
   { href: "/result/", icon: <MdFileDownload />, title: "Result" },
+  { href: "/demo/", icon: <MdImage />, title: "Demo" },
   { href: "/about/", icon: <MdInfo />, title: "About" },
 ];
 

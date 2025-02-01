@@ -19,6 +19,13 @@ describe("Upload multiple pdf files", () => {
 
       cy.visit("/");
       cy.get('input[type="file"]').selectFile(files);
+
+      cy.get('[data-testid="progress-indicator-completed"]').should("exist");
+
+      cy.get('[data-testid="result-button"]').then((button) => {
+        expect(button).to.not.be.disabled;
+      });
+
       cy.get('[data-testid="result-button"]').click();
 
       for (let i = 0; i < dataArray.length; i++) {

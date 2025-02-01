@@ -3,6 +3,7 @@
 import { BsFiletypePdf, BsFiletypeTxt, BsArrowRight } from "react-icons/bs";
 import ThemeSwitch from "@/components/theme-switch";
 import {
+  Button,
   Link,
   Navbar,
   NavbarBrand,
@@ -45,13 +46,14 @@ export default function Header() {
       <NavbarMenu>
         {navigationTabs.map((item) => (
           <NavbarMenuItem key={item.href}>
-            <Link
+            <Button
+              as={Link}
               href={item.href}
-              className="flex items-center gap-3 text-3xl my-3"
+              className="flex items-center gap-1 text-xl my-1 p-5"
               onPress={() => setIsMenuOpen(false)}
             >
               {item.icon} {item.title}
-            </Link>
+            </Button>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
