@@ -15,6 +15,7 @@ export default function ProgressIndicator({
       aria-label="Loading..."
       size="md"
       label="Loading"
+      data-testid="progress-indicator-loading"
     />
   ) : (
     <Progress
@@ -22,6 +23,7 @@ export default function ProgressIndicator({
       size="md"
       value={isTextAvailable ? 100 : 0}
       label={isTextAvailable ? "Completed" : ""}
+      data-testid="progress-indicator-completed"
     />
   );
 }

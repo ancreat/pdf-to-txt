@@ -15,6 +15,10 @@ describe("Upload a pdf file", () => {
 
       cy.visit("/");
       cy.get('input[type="file"]').selectFile(file);
+      cy.get('[data-testid="progress-indicator-completed"]').should("exist");
+      cy.get('[data-testid="result-button"]').then((button) => {
+        expect(button).to.not.be.disabled;
+      });
       cy.get('[data-testid="result-button"]').click();
       cy.get('[data-testid="open-text-modal-button-0"]').click();
       cy.get('[data-testid="open-text-modal-button-modal-body"]').then(
