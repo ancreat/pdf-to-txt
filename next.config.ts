@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     BASE_PATH: basePath,
   },
   trailingSlash: true,
+  devIndicators: {
+    appIsrStatus: false,
+  },
 };
 
 export default nextConfig;
