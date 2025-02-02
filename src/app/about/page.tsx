@@ -42,8 +42,9 @@ export default function About() {
             <li>TypeScript</li>
             <li>Tailwind CSS</li>
             <li>Zustand for state management</li>
-            <li>HeroUI for components</li>
-            <li>Vitest for testing</li>
+            <li>HeroUI for UI components</li>
+            <li>Vitest for component testing</li>
+            <li>Cypress for end-to-end testing</li>
           </ul>
         </Card>
       </div>
