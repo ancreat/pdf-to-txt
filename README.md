@@ -21,12 +21,10 @@ Try it out: [Live Demo](https://ancreat.github.io/pdf-to-txt/)
 ```
 src/
 ├── app/                      # Next.js pages and layouts
-│   └── ...
 │   └── result/
 │       └── page.test.tsx     # Vitest example
 │
 ├── components/               # Reusable UI components
-│   └── ...
 │
 ├── hooks/                    # Custom React hooks
 │   └── useFileProcessing.ts  # PDF processing logic
@@ -36,6 +34,10 @@ src/
 │
 └── utils/                    # Utility functions
     └── file-utils.ts
+
+cypress/
+└── e2e/                      # End-to-end tests
+    └── *.cy.ts
 ```
 
 ## Tech Stack
@@ -45,13 +47,16 @@ src/
 - TypeScript
 - Tailwind CSS
 - Zustand for state management
-- HeroUI for components
-- Vitest for testing
+- HeroUI for UI components
+- Vitest for component testing
+- Cypress for end-to-end testing
 
 ## Getting started
 
 - `npm install` Install the dependencies
 - `npm run dev` Run the server for development
+- `npm run test` Run component tests using Vitest
+- `npm run e2e` Run end-to-end tests using Cypress
 - `npm run build` Build the product for production
 - `npm run deploy` Build and deploy the product
 
