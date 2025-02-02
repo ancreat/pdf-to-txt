@@ -11,7 +11,8 @@
     "prepare": "husky",
     "prettier": "prettier . --write",
     "test": "vitest",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "e2e": "cypress run"
   },
   "dependencies": {
     "@heroui/react": "2.6.14",
