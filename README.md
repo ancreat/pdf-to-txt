@@ -58,7 +58,6 @@ cypress/
 - `npm run test` Run component tests using Vitest
 - `npm run e2e` Run end-to-end tests using Cypress
 - `npm run build` Build the product for production
-- `npm run deploy` Build and deploy the product
 
 ## Similar projects
 
