@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   basePath: basePath,
   env: {
     BASE_PATH: basePath,
+    NEXT_PUBLIC_BASE_PATH: basePath,
   },
   trailingSlash: true,
   devIndicators: {

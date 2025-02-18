@@ -31,9 +31,13 @@ export default function Demo() {
         }}
       >
         {isMobileSelected == true ? (
-          <VideoPlayer src="/videos/demo_mobile_video.mp4" />
+          <VideoPlayer
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/videos/demo_mobile_video.mp4`}
+          />
         ) : (
-          <VideoPlayer src="/videos/demo_desktop_video.mp4" />
+          <VideoPlayer
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/videos/demo_desktop_video.mp4`}
+          />
         )}
       </div>
     </main>
