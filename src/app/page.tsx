@@ -10,62 +10,46 @@ import { MdFileDownload } from "react-icons/md";
 export default function Home() {
   const router = useRouter();
 
-  const {
-    text,
-    isTextExtracting,
-    isAlertVisible,
-    fileInputRef,
-    extractText,
-    reset,
-  } = useFileProcessing();
-
-  const isTextAvailable = text != null;
+  const { fileNames, isTextExtracting, isAlertVisible, extractText, reset } =
+    useFileProcessing();
 
   return (
-    <main className="flex flex-col gap-5 items-center p-3">
-      <div className="flex w-full max-w-xl">
-        <FileInput
-          onChange={extractText}
-          inputRef={fileInputRef}
-          isAlertVisible={isAlertVisible}
-        />
-      </div>
-
-      <div className="flex w-full max-w-xl">
-        <ProgressIndicator
-          isTextExtracting={isTextExtracting}
-          isTextAvailable={isTextAvailable}
-        />
-      </div>
+    <main className="flex flex-col gap-5 p-3 items-center w-full max-w-xl mx-auto">
+      <FileInput
+        extractText={extractText}
+        isAlertVisible={isAlertVisible}
+        progressIndicator={
+          <ProgressIndicator
+            isTextExtracting={isTextExtracting}
+            isAnyFileProcessed={fileNames.length != 0}
+          />
+        }
+        selectedFileLabel=<>
+          {fileNames.length == 0
+            ? "Please select PDF files"
+            : "Selected " + fileNames.join(", ")}
+        </>
+      />
 
       <div className="flex w-full max-w-sm">
         <Button
           data-testid="result-button"
           onPress={() => router.push("/result/")}
-          isDisabled={
-            isTextExtracting ||
-            fileInputRef.current?.value == null ||
-            fileInputRef.current?.value == ""
-          }
+          isDisabled={isTextExtracting || fileNames.length == 0}
           color="primary"
           fullWidth
         >
           <MdFileDownload /> Result
         </Button>
       </div>
-
       <div className="flex w-full max-w-sm">
         <Button
           onPress={reset}
           color="default"
-          isDisabled={
-            isTextExtracting ||
-            fileInputRef.current?.value == null ||
-            fileInputRef.current?.value == ""
-          }
+          isDisabled={isTextExtracting || fileNames.length == 0}
           fullWidth
         >
-          Reset the PDF files selection
+          Reset
         </Button>
       </div>
     </main>

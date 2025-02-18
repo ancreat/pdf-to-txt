@@ -2,28 +2,36 @@ import { Progress } from "@heroui/react";
 
 interface ProgressIndicatorProps {
   isTextExtracting: boolean;
-  isTextAvailable: boolean;
+  isAnyFileProcessed: boolean;
+}
+
+function getProgressLabel(text: string) {
+  return <div className="text-base h-5">{text}</div>;
 }
 
 export default function ProgressIndicator({
   isTextExtracting,
-  isTextAvailable,
+  isAnyFileProcessed,
 }: ProgressIndicatorProps) {
   return isTextExtracting ? (
     <Progress
       isIndeterminate
       aria-label="Loading..."
       size="md"
-      label="Loading"
+      label={getProgressLabel("Loading")}
       data-testid="progress-indicator-loading"
     />
   ) : (
     <Progress
       aria-label="completed"
       size="md"
-      value={isTextAvailable ? 100 : 0}
-      label={isTextAvailable ? "Completed" : ""}
-      data-testid="progress-indicator-completed"
+      value={isAnyFileProcessed ? 100 : 0}
+      label={getProgressLabel(isAnyFileProcessed ? "Completed" : "")}
+      data-testid={
+        isAnyFileProcessed
+          ? "progress-indicator-completed"
+          : "progress-indicator-not-started"
+      }
     />
   );
 }

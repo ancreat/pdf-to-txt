@@ -1,42 +1,54 @@
 "use client";
 
-import { Alert, Input } from "@heroui/react";
-import { RefObject } from "react";
+import { Alert } from "@heroui/react";
+import { JSX } from "react";
+import { useDropzone } from "react-dropzone";
 
 interface FileInputProps {
-  onChange: (event: React.FormEvent<HTMLInputElement>) => void;
-  inputRef: RefObject<HTMLInputElement | null>;
+  extractText: (files: File[]) => void;
   isAlertVisible: boolean;
+  progressIndicator: JSX.Element;
+  selectedFileLabel: JSX.Element;
 }
 
-const FileInput = ({ onChange, inputRef, isAlertVisible }: FileInputProps) => {
+function FileInput({
+  extractText,
+  isAlertVisible,
+  progressIndicator,
+  selectedFileLabel,
+}: FileInputProps) {
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: extractText,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+  });
+
   return (
-    <div className="w-full p-3 rounded-3xl bg-gradient-to-tr from-neutral-300 to-neutral-500 dark:bg-gradient-to-bl">
-      <Input
-        ref={inputRef}
-        type="file"
-        accept="application/pdf"
-        onChange={onChange}
-        multiple={true}
-        fullWidth={true}
-        label={"Choose PDF files"}
-        isInvalid={isAlertVisible}
-        errorMessage={
-          <Alert
-            className="mt-1"
-            title="Failed to extract text from pdf"
-            color="danger"
-            data-testid="file-input-error-message"
-          />
-        }
-        classNames={{
-          label: "font-bold text-2xl cursor-pointer",
-          input: "cursor-pointer",
-          inputWrapper: "h-20",
-        }}
-      />
-    </div>
+    <section className="flex flex-col p-4 gap-3 w-full">
+      <div
+        {...getRootProps()}
+        className="border-3 border-dashed border-gray-300 rounded-lg text-center cursor-pointer hover:border-gray-500 py-10"
+        data-testid="drag-zone"
+      >
+        <input {...getInputProps()} />
+        <p>Click to select PDF files or drag and drop here</p>
+      </div>
+
+      {selectedFileLabel}
+
+      {progressIndicator}
+
+      {isAlertVisible && (
+        <Alert
+          className="mt-1"
+          title="Failed to extract text from some PDF files"
+          color="danger"
+          data-testid="file-input-error-message"
+        />
+      )}
+    </section>
   );
-};
+}
 
 export default FileInput;

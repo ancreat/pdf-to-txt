@@ -18,7 +18,9 @@ describe("Upload multiple pdf files", () => {
       );
 
       cy.visit("/");
-      cy.get('input[type="file"]').selectFile(files);
+      cy.get('[data-testid="drag-zone"]').selectFile(files, {
+        action: "drag-drop",
+      });
 
       cy.get('[data-testid="progress-indicator-completed"]').should("exist");
 

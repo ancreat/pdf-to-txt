@@ -22,14 +22,14 @@ export default function Result() {
 
   const addSampleFile = () => {
     appendFileHistory({
-      textFileName: "Sample File.pdf",
+      fileName: "Sample File.pdf",
       text: "Hello, World!",
       isSuccess: true,
     });
   };
 
   return (
-    <main className="flex flex-col gap-5 items-center p-3">
+    <main className="flex flex-col gap-5 items-center p-3 w-full max-w-3xl mx-auto">
       <Table aria-label="Result Table">
         <TableHeader>
           <TableColumn data-testid="header-index">Item</TableColumn>
@@ -41,14 +41,14 @@ export default function Result() {
           {fileHistory.map((item, index) => (
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
-              <TableCell className="font-bold">{item.textFileName}</TableCell>
+              <TableCell className="font-bold">{item.fileName}</TableCell>
               <TableCell>{item.isSuccess ? "Succeeded" : "Failed"}</TableCell>
               <TableCell>
                 {item.text !== null && (
                   <OpenTextModalButton
                     data-testid={`open-text-modal-button-${index}`}
                     text={item.text ?? ""}
-                    textFileName={item.textFileName ?? ""}
+                    textFileName={item.fileName ?? ""}
                     isTextAvailable={item.text !== null}
                   />
                 )}

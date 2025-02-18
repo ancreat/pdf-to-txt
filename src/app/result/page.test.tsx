@@ -29,13 +29,13 @@ const renderResult = () => {
 
 const mockFileHistory: FileHistory[] = [
   {
-    textFileName: "test1.pdf",
+    fileName: "test1.pdf",
     text: "Sample text 1",
     isSuccess: true,
     timestamp: "2000-01-01 01:00:00",
   },
   {
-    textFileName: "test2.pdf",
+    fileName: "test2.pdf",
     text: null,
     isSuccess: false,
     timestamp: "2000-01-01 01:01:00",

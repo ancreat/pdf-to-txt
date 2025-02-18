@@ -57,6 +57,7 @@ export default function OpenTextModalButton({
                   disableCopy={!isTextAvailable}
                   variant="bordered"
                   size="md"
+                  data-testid="copy-snippet"
                 >
                   Copy
                 </Snippet>

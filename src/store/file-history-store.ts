@@ -1,16 +1,15 @@
 import { create } from "zustand";
 
 export interface FileHistory {
-  textFileName: string | null;
+  fileName: string;
   text: string | null;
   isSuccess: boolean;
-  timestamp: string;
 }
 
 interface FileHistoryStore {
   fileHistory: FileHistory[];
   resetFileHistory: () => void;
-  appendFileHistory: (newFileHistory: Omit<FileHistory, "timestamp">) => void;
+  appendFileHistory: (newFileHistory: FileHistory) => void;
 }
 
 export const useFileHistoryStore = create<FileHistoryStore>((set) => ({
@@ -22,7 +21,6 @@ export const useFileHistoryStore = create<FileHistoryStore>((set) => ({
         ...state.fileHistory,
         {
           ...newFileHistory,
-          timestamp: new Date().toLocaleString(),
         },
       ],
     })),
