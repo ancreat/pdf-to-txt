@@ -6,6 +6,7 @@ import ProgressIndicator from "@/components/progress-indicator";
 import { useFileProcessing } from "@/hooks/useFileProcessing";
 import { useRouter } from "next/navigation";
 import { MdFileDownload } from "react-icons/md";
+import { navigationTabs } from "@/components/navigation";
 
 export default function Home() {
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function Home() {
       <div className="flex w-full max-w-sm">
         <Button
           data-testid="result-button"
-          onPress={() => router.push("/result")}
+          onPress={() => router.push(navigationTabs.result.href)}
           isDisabled={isTextExtracting || fileNames.length == 0}
           color="primary"
           fullWidth

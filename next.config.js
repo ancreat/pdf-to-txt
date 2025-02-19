@@ -1,18 +1,18 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
 
 const basePath = process.env.NODE_ENV === "production" ? "/pdf-to-txt" : "";
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   output: "export",
   basePath: basePath,
   env: {
     BASE_PATH: basePath,
     NEXT_PUBLIC_BASE_PATH: basePath,
   },
-  trailingSlash: false,
+  skipTrailingSlashRedirect: true,
   devIndicators: {
     appIsrStatus: false,
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

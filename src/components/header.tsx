@@ -50,7 +50,7 @@ export default function Header() {
       </NavbarContent>
 
       <NavbarMenu>
-        {navigationTabs.map((item) => (
+        {Object.values(navigationTabs).map((item) => (
           <NavbarMenuItem key={item.href}>
             <Button
               as={Link}
