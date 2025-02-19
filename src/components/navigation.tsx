@@ -12,19 +12,19 @@ export const navigationTabs = [
     "data-testid": "navigation-home",
   },
   {
-    href: "/result/",
+    href: "/result",
     icon: <MdFileDownload />,
     title: "Result",
     "data-testid": "navigation-result",
   },
   {
-    href: "/demo/",
+    href: "/demo",
     icon: <MdImage />,
     title: "Demo",
     "data-testid": "navigation-demo",
   },
   {
-    href: "/about/",
+    href: "/about",
     icon: <MdInfo />,
     title: "About",
     "data-testid": "navigation-about",

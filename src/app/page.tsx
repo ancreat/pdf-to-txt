@@ -34,7 +34,7 @@ export default function Home() {
       <div className="flex w-full max-w-sm">
         <Button
           data-testid="result-button"
-          onPress={() => router.push("/result/")}
+          onPress={() => router.push("/result")}
           isDisabled={isTextExtracting || fileNames.length == 0}
           color="primary"
           fullWidth
