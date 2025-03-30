@@ -10,9 +10,6 @@ const nextConfig = {
     NEXT_PUBLIC_BASE_PATH: basePath,
   },
   skipTrailingSlashRedirect: true,
-  devIndicators: {
-    appIsrStatus: false,
-  },
 };
 
 module.exports = nextConfig;

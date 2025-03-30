@@ -4,6 +4,10 @@ A modern web application that converts PDF files to text format with batch proce
 
 ## 🚀 Demo
 
+<img src="public/gifs/demo_mobile_video.gif" alt="PDF to Text Demo" width="500" />
+
+## 🔗 Demo Link
+
 Try it out: [Live Demo](https://ancreat.github.io/pdf-to-txt/)
 
 ## ✨ Key Features
