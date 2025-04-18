@@ -32,13 +32,11 @@ const mockFileHistory: FileHistory[] = [
     fileName: "test1.pdf",
     text: "Sample text 1",
     isSuccess: true,
-    timestamp: "2000-01-01 01:00:00",
   },
   {
     fileName: "test2.pdf",
     text: null,
     isSuccess: false,
-    timestamp: "2000-01-01 01:01:00",
   },
 ];
 
@@ -99,6 +97,14 @@ describe("Result Page", () => {
   beforeEach(() => {
     cleanup();
     vi.clearAllMocks();
+
+    const resetFileHistory = renderHook(() =>
+      useFileHistoryStore((state) => state.resetFileHistory),
+    );
+
+    act(() => {
+      resetFileHistory.result.current();
+    });
 
     const appendFileHistory = renderHook(() =>
       useFileHistoryStore((state) => state.appendFileHistory),
