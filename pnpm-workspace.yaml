@@ -1,5 +1,6 @@
 onlyBuiltDependencies:
   - "@heroui/shared-utils"
+  - "@tailwindcss/oxide"
   - canvas
   - core-js
   - cypress

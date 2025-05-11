@@ -18,7 +18,7 @@
     "gif": "gifify -r 10@1 -o public/gifs/demo_mobile_video public/videos/demo_mobile_video.mp4"
   },
   "dependencies": {
-    "@heroui/react": "^2.7.8",
+    "@heroui/react": "^2.8.0-beta.4",
     "framer-motion": "^12.10.5",
     "jspdf": "^3.0.1",
     "next": "^15.3.2",
@@ -34,6 +34,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/postcss": "^4.1.6",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -46,11 +47,11 @@
     "eslint-config-next": "^15.3.2",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
-    "lint-staged": "^15.5.2",
+    "lint-staged": "^16.0.0",
     "postcss": "^8.5.3",
     "prettier": "3.5.3",
     "serve": "^14.2.4",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.6",
     "typescript": "^5.8.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.1.3"
