@@ -57,11 +57,11 @@ cypress/
 
 ## Getting started
 
-- `npm install` Install the dependencies
-- `npm run dev` Run the server for development
-- `npm run test` Run component tests using Vitest
-- `npm run e2e` Run end-to-end tests using Cypress
-- `npm run build` Build the product for production
+- `pnpm install` Install the dependencies
+- `pnpm run dev` Run the server for development
+- `pnpm run test` Run component tests using Vitest
+- `pnpm run e2e` Run end-to-end tests using Cypress
+- `pnpm run build` Build the product for production
 
 ## Similar projects
 

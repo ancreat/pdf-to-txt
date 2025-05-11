@@ -1,0 +1,8 @@
+onlyBuiltDependencies:
+  - "@heroui/shared-utils"
+  - canvas
+  - core-js
+  - cypress
+  - esbuild
+  - sharp
+  - unrs-resolver
